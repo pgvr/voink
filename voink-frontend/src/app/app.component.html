@@ -1,4 +1,50 @@
-<h1>Hello</h1>
-<div>
-    <p>Subtitle</p>
-</div>
+<nb-layout>
+    <nb-layout-header>
+        <!-- Insert header here -->
+        <h2>Voink</h2>
+        <h1>Twitch VOD Downloader</h1>
+        <p>Download Twitch VODs without size restrictions right in your browser</p>
+    </nb-layout-header>
+
+    <nb-layout-column>
+        <div *ngIf="loading">Loading ...</div>
+
+        <nb-reveal-card [showToggleButton]="false" [revealed]="isCardRevealed">
+            <nb-card-front>
+                <nb-card accent="success">
+                    <nb-card-header>Choose VOD</nb-card-header>
+                    <nb-card-body>
+                        <label for="videoId">VideoId</label>
+                        <input nbInput type="text" name="videoId" placeholder="58391949" [(ngModel)]="videoIdInput" />
+                        <button nbButton status="primary" (click)="downloadAllInOne()" [disabled]="!videoIdInput">
+                            Download All In One
+                        </button>
+                        <button nbButton status="danger" (click)="abortStream()" [disabled]="!videoIdInput">
+                            Abort
+                        </button>
+                        <button nbButton status="success" (click)="toggleCard()">
+                            Toggle
+                        </button>
+                    </nb-card-body>
+                </nb-card>
+            </nb-card-front>
+            <nb-card-back>
+                <nb-card accent="primary">
+                    <nb-card-header
+                        ><button (click)="toggleCard()" nbButton ghost status="danger">
+                            <nb-icon icon="arrow-back-outline"></nb-icon></button
+                        >Download VOD</nb-card-header
+                    >
+                    <nb-card-body>
+                        A nebula is an interstellar cloud of dust, hydrogen, helium and other ionized gases. Originally,
+                        nebula was a name for any diffuse astronomical object, including galaxies beyond the Milky Way.
+                    </nb-card-body>
+                </nb-card>
+            </nb-card-back>
+        </nb-reveal-card>
+    </nb-layout-column>
+
+    <nb-layout-footer fixed>
+        <!-- Insert footer here -->
+    </nb-layout-footer>
+</nb-layout>

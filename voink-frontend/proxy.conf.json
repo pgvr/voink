@@ -1,0 +1,11 @@
+{
+    "/chunkProxy/*": {
+        "target": "https://vod-metro.twitch.tv",
+        "secure": false,
+        "logLevel": "debug",
+        "changeOrigin": true,
+        "pathRewrite": {
+            "^/chunkProxy": ""
+        }
+    }
+}

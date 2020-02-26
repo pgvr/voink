@@ -1,3 +1,20 @@
-.testClass {
-    margin: 0;
+::ng-deep .nb-theme-default nb-layout-header nav {
+    background-color: purple;
+    color: white;
+    padding-bottom: 6rem;
+    padding-top: 3rem;
+    flex-direction: column;
+    height: inherit;
+    box-shadow: none;
+    position: relative;
+    h1,
+    h2,
+    p {
+        color: white;
+        margin-top: 0;
+    }
+}
+
+::ng-deep .layout-container {
+    margin-top: -5rem;
 }
