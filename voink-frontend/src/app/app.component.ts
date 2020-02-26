@@ -37,7 +37,11 @@ export class AppComponent {
     }
 
     toggleCard() {
-        this.isCardRevealed = !this.isCardRevealed
+        this.loading = true
+        setTimeout(() => {
+            this.loading = false
+            this.isCardRevealed = !this.isCardRevealed
+        }, 1000)
     }
 
     async downloadAllInOne() {

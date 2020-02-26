@@ -12,11 +12,14 @@ import {
     NbButtonModule,
     NbCardModule,
     NbIconModule,
+    NbSpinnerModule,
 } from "@nebular/theme"
-import { NbEvaIconsModule } from "@nebular/eva-icons"
+import { NbEvaIconsModule } from "@nebular/eva-icons";
+import { FetchVodComponent } from './components/fetch-vod/fetch-vod.component';
+import { DownloadVodComponent } from './components/download-vod/download-vod.component'
 
 @NgModule({
-    declarations: [AppComponent],
+    declarations: [AppComponent, FetchVodComponent, DownloadVodComponent],
     imports: [
         BrowserModule,
         AppRoutingModule,
@@ -29,6 +32,7 @@ import { NbEvaIconsModule } from "@nebular/eva-icons"
         NbButtonModule,
         NbCardModule,
         NbIconModule,
+        NbSpinnerModule,
         NbEvaIconsModule,
     ],
     bootstrap: [AppComponent],

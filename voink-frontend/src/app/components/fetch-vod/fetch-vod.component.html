@@ -1,0 +1,5 @@
+<label for="vodId">VOD ID</label>
+<input nbInput type="text" name="vodId" placeholder="58391949" [(ngModel)]="vodIdInput" />
+<button nbButton status="primary" (click)="vodService.download(); print(vodIdInput)" [disabled]="!vodIdInput">
+    Fetch VOD Info
+</button>
