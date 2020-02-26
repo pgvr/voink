@@ -16,10 +16,11 @@ import {
 } from "@nebular/theme"
 import { NbEvaIconsModule } from "@nebular/eva-icons";
 import { FetchVodComponent } from './components/fetch-vod/fetch-vod.component';
-import { DownloadVodComponent } from './components/download-vod/download-vod.component'
+import { DownloadVodComponent } from './components/download-vod/download-vod.component';
+import { ThumbnailDimensionsPipe } from './pipes/thumbnail-dimensions.pipe'
 
 @NgModule({
-    declarations: [AppComponent, FetchVodComponent, DownloadVodComponent],
+    declarations: [AppComponent, FetchVodComponent, DownloadVodComponent, ThumbnailDimensionsPipe],
     imports: [
         BrowserModule,
         AppRoutingModule,

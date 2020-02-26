@@ -1,1 +1,4 @@
-<p>download-vod works!</p>
+<p>{{ vodService.vodObject?.title }}</p>
+<p>by: {{ vodService.vodObject?.user_name }}</p>
+<p>duration: {{ vodService.vodObject?.duration }}</p>
+<img *ngIf="vodService.vodObject?.thumbnail_url" [src]="vodService.vodObject?.thumbnail_url" />

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { VodService } from 'src/app/services/vod.service';
 
 @Component({
   selector: 'app-download-vod',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DownloadVodComponent implements OnInit {
 
-  constructor() { }
+  constructor(public vodService: VodService) { }
 
   ngOnInit(): void {
   }

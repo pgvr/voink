@@ -2,6 +2,7 @@ import { Component, OnDestroy, HostListener } from "@angular/core"
 import * as streamsaver from "streamsaver"
 streamsaver.mitm = "/mitm.html"
 import { Quality } from "../../../voink-backend/src/video/video.types"
+import { VodService } from './services/vod.service'
 
 @Component({
     selector: "app-root",
@@ -12,9 +13,7 @@ export class AppComponent {
     loading = false
     writeStream: WritableStream
     writer: WritableStreamDefaultWriter
-    videoIdInput
-    isCardRevealed = false
-    constructor() {}
+    constructor(public vodService: VodService) {}
 
     @HostListener("window:unload", ["$event"])
     unloadHandler(event) {
@@ -36,21 +35,10 @@ export class AppComponent {
         }
     }
 
-    toggleCard() {
-        this.loading = true
-        setTimeout(() => {
-            this.loading = false
-            this.isCardRevealed = !this.isCardRevealed
-        }, 1000)
-    }
-
     async downloadAllInOne() {
-        if (!this.videoIdInput) {
-            console.log("no video id")
-            return
-        }
+        const id = "557707772"
         const qualities: Quality[] = await (
-            await fetch(`http://localhost:3000/video/qualities?videoId=${this.videoIdInput}`)
+            await fetch(`http://localhost:3000/video/qualities?videoId=${id}`)
         ).json()
         console.log(qualities)
         const { amountOfChunks } = await (
@@ -62,7 +50,7 @@ export class AppComponent {
         const start = new Date().getTime()
 
         this.loading = true
-        this.writeStream = streamsaver.createWriteStream(`${this.videoIdInput}.ts`)
+        this.writeStream = streamsaver.createWriteStream(`${id}.ts`)
         this.writer = this.writeStream.getWriter()
         for (let i = 0; i < amountOfChunks; i = i + 20) {
             const requests = []

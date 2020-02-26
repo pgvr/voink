@@ -7,7 +7,7 @@
     </nb-layout-header>
 
     <nb-layout-column>
-        <nb-reveal-card [showToggleButton]="false" [revealed]="isCardRevealed" [nbSpinner]="loading">
+        <!-- <nb-reveal-card [showToggleButton]="false" [revealed]="vodService.isRevealed" [nbSpinner]="loading">
             <nb-card-front>
                 <nb-card accent="primary">
                     <nb-card-header>Choose VOD</nb-card-header>
@@ -19,7 +19,7 @@
             <nb-card-back>
                 <nb-card accent="success">
                     <nb-card-header>
-                        <button (click)="toggleCard()" nbButton ghost status="danger">
+                        <button (click)="vodService.setIsRevealed(false)" nbButton ghost status="danger">
                             <nb-icon icon="arrow-back-outline"></nb-icon>
                         </button>
                         Download VOD
@@ -29,7 +29,31 @@
                     </nb-card-body>
                 </nb-card>
             </nb-card-back>
-        </nb-reveal-card>
+        </nb-reveal-card> -->
+
+        <nb-flip-card [flipped]="vodService.isRevealed" [showToggleButton]="false" [nbSpinner]="loading">
+            <nb-card-front>
+                <nb-card>
+                    <nb-card-header>Choose VOD</nb-card-header>
+                    <nb-card-body>
+                        <app-fetch-vod></app-fetch-vod>
+                    </nb-card-body>
+                </nb-card>
+            </nb-card-front>
+            <nb-card-back>
+                <nb-card>
+                    <nb-card-header>
+                        <button (click)="vodService.setIsRevealed(false)" nbButton ghost status="danger">
+                            <nb-icon icon="arrow-back-outline"></nb-icon>
+                        </button>
+                        Download VOD
+                    </nb-card-header>
+                    <nb-card-body>
+                        <app-download-vod></app-download-vod>
+                    </nb-card-body>
+                </nb-card>
+            </nb-card-back>
+        </nb-flip-card>
     </nb-layout-column>
 
     <nb-layout-footer fixed>

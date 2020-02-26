@@ -1,5 +1,6 @@
 ::ng-deep .nb-theme-default nb-layout-header nav {
-    background-color: purple;
+    background: rgb(190, 57, 255);
+    background: linear-gradient(90deg, rgba(190, 57, 255, 1) 0%, rgba(176, 0, 255, 1) 50%, rgba(137, 0, 255, 1) 100%);
     color: white;
     padding-bottom: 6rem;
     padding-top: 3rem;
@@ -17,4 +18,8 @@
 
 ::ng-deep .layout-container {
     margin-top: -5rem;
+    nb-flip-card {
+        max-width: 600px;
+        margin: 0 auto;
+    }
 }
