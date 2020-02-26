@@ -13,24 +13,39 @@ import {
     NbCardModule,
     NbIconModule,
     NbSpinnerModule,
+    NbSelectModule,
+    NbProgressBarModule,
+    NbBadgeModule,
+    NbStepperModule,
 } from "@nebular/theme"
-import { NbEvaIconsModule } from "@nebular/eva-icons";
-import { FetchVodComponent } from './components/fetch-vod/fetch-vod.component';
-import { DownloadVodComponent } from './components/download-vod/download-vod.component';
-import { ThumbnailDimensionsPipe } from './pipes/thumbnail-dimensions.pipe'
+import { NbEvaIconsModule } from "@nebular/eva-icons"
+import { FetchVodComponent } from "./components/fetch-vod/fetch-vod.component"
+import { DownloadVodComponent } from "./components/download-vod/download-vod.component"
+import { ThumbnailDimensionsPipe } from "./pipes/thumbnail-dimensions.pipe"
+import { DownloadProgressComponent } from "./components/download-progress/download-progress.component"
 
 @NgModule({
-    declarations: [AppComponent, FetchVodComponent, DownloadVodComponent, ThumbnailDimensionsPipe],
+    declarations: [
+        AppComponent,
+        FetchVodComponent,
+        DownloadVodComponent,
+        ThumbnailDimensionsPipe,
+        DownloadProgressComponent,
+    ],
     imports: [
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
         FormsModule,
         BrowserAnimationsModule,
-        NbThemeModule.forRoot({ name: "default" }),
+        NbThemeModule.forRoot({ name: "cosmic" }),
         NbLayoutModule,
         NbInputModule,
         NbButtonModule,
+        NbBadgeModule,
+        NbStepperModule,
+        NbProgressBarModule,
+        NbSelectModule,
         NbCardModule,
         NbIconModule,
         NbSpinnerModule,

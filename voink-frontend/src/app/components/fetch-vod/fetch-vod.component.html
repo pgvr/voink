@@ -1,7 +1,6 @@
-<div class="wrapper">
-    <label for="vodId">VOD ID</label>
-    <input nbInput type="text" name="vodId" placeholder="58391949" [(ngModel)]="vodIdInput" />
-    <button nbButton status="primary" (click)="getVodInfo()" [disabled]="!vodIdInput">
-        Fetch VOD Info
-    </button>
-</div>
+<h6>Enter The Video ID</h6>
+<p class="text-hint">e.g. https://www.twitch.tv/videos/<strong>557814568</strong></p>
+<input nbInput type="text" name="vodId" placeholder="58391949" [(ngModel)]="vodIdInput" />
+<button nbButton status="primary" (click)="getVodInfo()" [disabled]="!vodIdInput">
+    Fetch VOD Info
+</button>

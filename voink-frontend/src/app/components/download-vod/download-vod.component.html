@@ -1,4 +1,16 @@
-<p>{{ vodService.vodObject?.title }}</p>
-<p>by: {{ vodService.vodObject?.user_name }}</p>
-<p>duration: {{ vodService.vodObject?.duration }}</p>
-<img *ngIf="vodService.vodObject?.thumbnail_url" [src]="vodService.vodObject?.thumbnail_url" />
+<p class="stream-title">{{ vodService.vodObject?.title }}</p>
+<p class="text-hint streamer">{{ vodService.vodObject?.user_name }} - {{ vodService.vodObject?.duration }}</p>
+<div class="image-skeleton">
+    <img
+        *ngIf="vodService.vodObject?.thumbnail_url"
+        [src]="vodService.vodObject?.thumbnail_url | thumbnailDimensions: [320, 180]"
+    />
+</div>
+<nb-select placeholder="Quality" [(ngModel)]="selectedQuality">
+    <nb-option *ngFor="let quality of vodService.qualities" [value]="quality">
+        {{ quality.id === "chunked" ? quality.name : quality.id }}
+    </nb-option>
+</nb-select>
+<button nbButton hero status="primary" (click)="startDownload()" [disabled]="!selectedQuality">
+    Start Download
+</button>

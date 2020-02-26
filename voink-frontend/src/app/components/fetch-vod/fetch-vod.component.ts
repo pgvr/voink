@@ -1,5 +1,7 @@
-import { Component, OnInit } from "@angular/core"
+import { Component, OnInit, Input } from "@angular/core"
 import { VodService } from "src/app/services/vod.service"
+import { NbStepperComponent } from "@nebular/theme"
+import { UiService } from "src/app/services/ui.service"
 
 @Component({
     selector: "app-fetch-vod",
@@ -7,19 +9,19 @@ import { VodService } from "src/app/services/vod.service"
     styleUrls: ["./fetch-vod.component.scss"],
 })
 export class FetchVodComponent implements OnInit {
-    vodIdInput = "557707772"
-    constructor(public vodService: VodService) {}
+    @Input() stepper: NbStepperComponent
+    vodIdInput = "557814568"
+    constructor(public vodService: VodService, public ui: UiService) {}
 
     ngOnInit(): void {}
 
-    print(input) {
-        // console.log(input.value)
-    }
-
     async getVodInfo() {
-        const vod = await this.vodService.getVodFromId(this.vodIdInput)
-        console.log(vod)
-        this.vodService.vodObject = vod
-        this.vodService.setIsRevealed(true)
+        this.ui.isStepperLoading = true
+        await Promise.all([
+            this.vodService.getVodFromId(this.vodIdInput),
+            this.vodService.getQualitiesForVod(this.vodIdInput),
+        ])
+        this.stepper.next()
+        this.ui.isStepperLoading = false
     }
 }

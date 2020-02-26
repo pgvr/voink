@@ -1,5 +1,15 @@
-.wrapper {
+:host {
     display: flex;
     flex-direction: column;
     align-items: center;
+    h6 {
+        margin: 0;
+    }
+    p {
+        margin: 0;
+        margin-bottom: 1em;
+    }
+    input {
+        margin-bottom: 1em;
+    }
 }

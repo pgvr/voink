@@ -1,62 +1,59 @@
 <nb-layout>
     <nb-layout-header>
-        <!-- Insert header here -->
-        <h2>Voink</h2>
-        <h1>Twitch VOD Yoinker</h1>
-        <p>Download Twitch VODs without size restrictions right in your browser</p>
+        <h1>Voink</h1>
     </nb-layout-header>
 
     <nb-layout-column>
-        <!-- <nb-reveal-card [showToggleButton]="false" [revealed]="vodService.isRevealed" [nbSpinner]="loading">
-            <nb-card-front>
-                <nb-card accent="primary">
-                    <nb-card-header>Choose VOD</nb-card-header>
-                    <nb-card-body>
-                        <app-fetch-vod></app-fetch-vod>
-                    </nb-card-body>
-                </nb-card>
-            </nb-card-front>
-            <nb-card-back>
-                <nb-card accent="success">
-                    <nb-card-header>
-                        <button (click)="vodService.setIsRevealed(false)" nbButton ghost status="danger">
-                            <nb-icon icon="arrow-back-outline"></nb-icon>
-                        </button>
-                        Download VOD
-                    </nb-card-header>
-                    <nb-card-body>
-                        <app-download-vod></app-download-vod>
-                    </nb-card-body>
-                </nb-card>
-            </nb-card-back>
-        </nb-reveal-card> -->
+        <nb-card [nbSpinner]="ui.isStepperLoading">
+            <nb-card-header>
+                <h5>A Twitch VOD Yoinker 📺</h5>
+                <button status="basic" nbButton (click)="stepper.reset()">Reset</button>
+            </nb-card-header>
+            <nb-card-body>
+                <nb-stepper #stepper orientation="horizontal" [disableStepNavigation]="true">
+                    <nb-step label="Choose VOD">
+                        <app-fetch-vod [stepper]="stepper"></app-fetch-vod>
+                    </nb-step>
+                    <nb-step label="Details">
+                        <app-download-vod [stepper]="stepper"></app-download-vod>
+                    </nb-step>
+                    <nb-step label="Download">
+                        <p>Do NOT close this page or the download will be canceled</p>
+                        <app-download-progress [stepper]="stepper"></app-download-progress>
+                    </nb-step>
+                </nb-stepper>
+            </nb-card-body>
+        </nb-card>
+        <!-- <nb-card accent="primary" [nbSpinner]="vodService.isLoading" *ngIf="vodService.status === 'fetch'">
+            <nb-card-header>Choose VOD</nb-card-header>
+            <nb-card-body>
+                <app-fetch-vod></app-fetch-vod>
+            </nb-card-body>
+        </nb-card>
 
-        <nb-flip-card [flipped]="vodService.isRevealed" [showToggleButton]="false" [nbSpinner]="loading">
-            <nb-card-front>
-                <nb-card>
-                    <nb-card-header>Choose VOD</nb-card-header>
-                    <nb-card-body>
-                        <app-fetch-vod></app-fetch-vod>
-                    </nb-card-body>
-                </nb-card>
-            </nb-card-front>
-            <nb-card-back>
-                <nb-card>
-                    <nb-card-header>
-                        <button (click)="vodService.setIsRevealed(false)" nbButton ghost status="danger">
-                            <nb-icon icon="arrow-back-outline"></nb-icon>
-                        </button>
-                        Download VOD
-                    </nb-card-header>
-                    <nb-card-body>
-                        <app-download-vod></app-download-vod>
-                    </nb-card-body>
-                </nb-card>
-            </nb-card-back>
-        </nb-flip-card>
+        <nb-card accent="info" [nbSpinner]="vodService.isLoading" *ngIf="vodService.status === 'info'">
+            <nb-card-header>
+                <button (click)="vodService.setStatus('fetch')" nbButton ghost status="primary">
+                    <nb-icon icon="arrow-back-outline"></nb-icon>
+                </button>
+                Download VOD
+            </nb-card-header>
+            <nb-card-body>
+                <app-download-vod></app-download-vod>
+            </nb-card-body>
+        </nb-card>
+
+        <nb-card accent="success" *ngIf="vodService.status === 'download'">
+            <nb-card-header>Download Progress</nb-card-header>
+            <nb-card-body>
+                <p>Do NOT close this page or the download will be canceled</p>
+                <app-download-progress></app-download-progress>
+            </nb-card-body>
+        </nb-card> -->
     </nb-layout-column>
 
     <nb-layout-footer fixed>
-        <!-- Insert footer here -->
+        <p>This site is in no way affiliated with Twitch</p>
+        <span>Made with ❤️ by <a href="https://twitter.com/patrickgoeler" target="_blank">Patrick Goeler</a></span>
     </nb-layout-footer>
 </nb-layout>
