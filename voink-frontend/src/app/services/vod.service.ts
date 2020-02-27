@@ -1,6 +1,7 @@
 import { Injectable } from "@angular/core"
 import * as streamsaver from "streamsaver"
 streamsaver.mitm = "/mitm.html"
+import { environment } from "../../environments/environment"
 
 @Injectable({
     providedIn: "root",
@@ -16,13 +17,13 @@ export class VodService {
     constructor() {}
 
     async getVodFromId(id: string): Promise<void> {
-        const response = await fetch(`http://localhost:3000/video?videoId=${id}`)
+        const response = await fetch(`${environment.apiUrl}/video?videoId=${id}`)
         const body = await response.json()
         this.vodObject = body.data[0]
     }
 
     async getQualitiesForVod(id: string): Promise<void> {
-        const response = await fetch(`http://localhost:3000/video/qualities?videoId=${id}`)
+        const response = await fetch(`${environment.apiUrl}/video/qualities?videoId=${id}`)
         const body = await response.json()
         this.qualities = body
     }
@@ -40,7 +41,7 @@ export class VodService {
     async startDownload(selectedQuality: Quality) {
         this.abortController = new AbortController()
         const { amountOfChunks } = await (
-            await fetch(`http://localhost:3000/video/amountChunks?playlistUrl=${selectedQuality.url}`)
+            await fetch(`${environment.apiUrl}/video/amountChunks?playlistUrl=${selectedQuality.url}`)
         ).json()
         this.totalChunks = amountOfChunks
         this.loadedChunks = 0
@@ -54,6 +55,7 @@ export class VodService {
         this.writer = this.writeStream.getWriter()
         for (let i = 0; i < amountOfChunks; i = i + 10) {
             const requests = []
+            // enough chunks left to make a batch request with 10?
             const enoughRemaining = amountOfChunks - i >= 10 ? 10 : amountOfChunks - i
             for (let j = 0; j < enoughRemaining; j++) {
                 requests.push(this.getChunkSafe(downloadUrl, i + j))
@@ -87,6 +89,7 @@ export class VodService {
             // const urlIndex = modulo < 100 ? (modulo < 10 ? `00${modulo}` : `0${modulo}`) : `${modulo}`
             // vod-metro.twitch.tv
             // vod111-ttvnw.akamaized.net        vod${urlIndex}-ttvnw.akamaized.net
+            // const baseUrl = environment.production ? "https://vod-metro.twitch.tv" : "/chunkProxy"
             let res = await fetch(`/chunkProxy${url}${i}.ts`, { signal: this.abortController.signal })
             if (res.status !== 200) {
                 res = await fetch(`/chunkProxy${url}${i}-muted.ts`, { signal: this.abortController.signal })
