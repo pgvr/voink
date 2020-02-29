@@ -90,12 +90,12 @@ export class VodService {
             // vod-metro.twitch.tv
             // vod111-ttvnw.akamaized.net        vod${urlIndex}-ttvnw.akamaized.net
             // const baseUrl = environment.production ? "https://vod-metro.twitch.tv" : "/chunkProxy"
-            const baseUrl = environment.production ? "https://powerful-tor.herokuapp.com" : "/chunkProxy"
-            let res = await fetch(`${baseUrl}/https://vod-metro.twitch.tv${url}${i}.ts`, {
+            const baseUrl = environment.production ? "https://powerful-tor.herokuapp.com/https://vod-metro.twitch.tv" : "/chunkProxy"
+            let res = await fetch(`${baseUrl}${url}${i}.ts`, {
                 signal: this.abortController.signal,
             })
             if (res.status !== 200) {
-                res = await fetch(`${baseUrl}/https://vod-metro.twitch.tv${url}${i}-muted.ts`, {
+                res = await fetch(`${baseUrl}${url}${i}-muted.ts`, {
                     signal: this.abortController.signal,
                 })
             }

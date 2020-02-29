@@ -7,7 +7,9 @@
         <nb-card [nbSpinner]="ui.isStepperLoading">
             <nb-card-header>
                 <h5>A Twitch VOD Yoinker 📺</h5>
-                <button status="basic" nbButton (click)="stepper.reset()">Reset</button>
+                <button status="danger" ghost nbButton (click)="stepper.reset()">
+                    <nb-icon icon="refresh-outline"></nb-icon>
+                </button>
             </nb-card-header>
             <nb-card-body>
                 <nb-stepper #stepper orientation="horizontal" [disableStepNavigation]="true">
@@ -54,6 +56,8 @@
 
     <nb-layout-footer fixed>
         <p>This site is in no way affiliated with Twitch</p>
-        <span>Made with ❤️ by <a href="https://twitter.com/patrickgoeler" target="_blank">Patrick Goeler</a></span>
+        <span>
+            Made with ☕ and ❤️ by <a href="https://twitter.com/patrickgoeler" target="_blank">Patrick Goeler</a>
+        </span>
     </nb-layout-footer>
 </nb-layout>
