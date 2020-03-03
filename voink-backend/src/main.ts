@@ -1,10 +1,15 @@
 import { NestFactory } from "@nestjs/core"
 import { AppModule } from "./app.module"
 import * as proxy from "http-proxy-middleware"
+const production = process.env.NODE_ENV
 
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
-    app.enableCors()
+    if (production) {
+        app.enableCors({ origin: "https://voink.netlify.com" })
+    } else {
+        app.enableCors()
+    }
     app.use(
         "/proxy",
         proxy.createProxyMiddleware({
