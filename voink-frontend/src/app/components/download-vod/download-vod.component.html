@@ -6,6 +6,71 @@
         [src]="vodService.vodObject?.thumbnail_url | thumbnailDimensions: [320, 180]"
     />
 </div>
+<ng-container *ngIf="showError">
+    <p class="text-warning">Something is not right. Check again.</p>
+</ng-container>
+<div class="start-time">
+    <p>
+        Start:
+    </p>
+    <input
+        onClick="this.select();"
+        min="0"
+        [max]="endHours"
+        nbInput
+        type="number"
+        name="start-hours"
+        [(ngModel)]="startHourInput"
+    />
+    <span>h</span>
+    <input
+        onClick="this.select();"
+        min="0"
+        max="59"
+        nbInput
+        type="number"
+        name="start-mins"
+        [(ngModel)]="startMinInput"
+    />
+    <span>m</span>
+    <input
+        onClick="this.select();"
+        min="0"
+        max="59"
+        nbInput
+        type="number"
+        name="start-seconds"
+        [(ngModel)]="startSecondInput"
+    />
+    <span>s</span>
+</div>
+<div class="end-time">
+    <p>
+        End:
+    </p>
+    <input
+        onClick="this.select();"
+        min="0"
+        [max]="endHours"
+        nbInput
+        type="number"
+        name="end-hours"
+        [(ngModel)]="endHourInput"
+    />
+    <span>h</span>
+    <input onClick="this.select();" min="0" max="59" nbInput type="number" name="end-mins" [(ngModel)]="endMinInput" />
+    <span>m</span>
+    <input
+        onClick="this.select();"
+        min="0"
+        max="59"
+        nbInput
+        type="number"
+        name="end-seconds"
+        [(ngModel)]="endSecondInput"
+    />
+    <span>s</span>
+</div>
 <nb-select placeholder="Quality" [(ngModel)]="selectedQuality">
     <nb-option *ngFor="let quality of vodService.qualities" [value]="quality">
         {{ quality.id === "chunked" ? quality.name : quality.id }}

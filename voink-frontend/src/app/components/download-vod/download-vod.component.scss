@@ -22,7 +22,21 @@
             border-radius: 0.5em;
         }
     }
+    .start-time,
+    .end-time {
+        p {
+            margin-bottom: 0;
+        }
+        input {
+            max-width: 3.5rem !important;
+        }
+        span {
+            margin-left: 0.25rem;
+            margin-right: 0.25rem;
+        }
+    }
     nb-select {
-        margin-bottom: 1em;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
     }
 }

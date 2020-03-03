@@ -1,6 +1,9 @@
 import { VodService } from "./services/vod.service"
-import { HostListener, Component } from "@angular/core"
+import { HostListener, Component, isDevMode } from "@angular/core"
 import { UiService } from "./services/ui.service"
+import { Router, NavigationEnd } from "@angular/router"
+import { filter } from "rxjs/operators"
+declare var gtag
 
 @Component({
     selector: "app-root",
@@ -8,7 +11,14 @@ import { UiService } from "./services/ui.service"
     styleUrls: ["./app.component.scss"],
 })
 export class AppComponent {
-    constructor(public vodService: VodService, public ui: UiService) {}
+    constructor(private router: Router, public vodService: VodService, public ui: UiService) {
+        if (!isDevMode()) {
+            const navEndEvent$ = router.events.pipe(filter(e => e instanceof NavigationEnd))
+            navEndEvent$.subscribe((e: NavigationEnd) => {
+                gtag("config", "UA-100079341-7", { page_path: e.urlAfterRedirects, anonymize_ip: true })
+            })
+        }
+    }
 
     @HostListener("window:unload", ["$event"])
     unloadHandler(event) {

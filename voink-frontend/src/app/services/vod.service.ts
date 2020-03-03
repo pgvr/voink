@@ -38,12 +38,12 @@ export class VodService {
         }
     }
 
-    async startDownload(selectedQuality: Quality) {
+    async startDownload(selectedQuality: Quality, startChunk: number, endChunk: number) {
         this.abortController = new AbortController()
-        const { amountOfChunks } = await (
-            await fetch(`${environment.apiUrl}/video/amountChunks?playlistUrl=${selectedQuality.url}`)
-        ).json()
-        this.totalChunks = amountOfChunks
+        // const { amountOfChunks } = await (
+        //     await fetch(`${environment.apiUrl}/video/amountChunks?playlistUrl=${selectedQuality.url}`)
+        // ).json()
+        this.totalChunks = endChunk - startChunk
         this.loadedChunks = 0
         const downloadUrl = selectedQuality.url.split("index")[0].split("twitch.tv")[1]
         const start = new Date().getTime()
@@ -53,11 +53,12 @@ export class VodService {
             }.ts`,
         )
         this.writer = this.writeStream.getWriter()
-        for (let i = 0; i < amountOfChunks; i = i + 10) {
+        for (let i = startChunk; i <= endChunk; i = i + 10) {
             const requests = []
             // enough chunks left to make a batch request with 10?
-            const enoughRemaining = amountOfChunks - i >= 10 ? 10 : amountOfChunks - i
-            for (let j = 0; j < enoughRemaining; j++) {
+            // chunks 0-9
+            let enoughRemaining = endChunk - i > 9 ? 9 : endChunk - i
+            for (let j = 0; j <= enoughRemaining; j++) {
                 requests.push(this.getChunkSafe(downloadUrl, i + j))
             }
             const buffers = (await Promise.all(requests).catch(err => {
@@ -90,7 +91,9 @@ export class VodService {
             // vod-metro.twitch.tv
             // vod111-ttvnw.akamaized.net        vod${urlIndex}-ttvnw.akamaized.net
             // const baseUrl = environment.production ? "https://vod-metro.twitch.tv" : "/chunkProxy"
-            const baseUrl = environment.production ? "https://powerful-tor.herokuapp.com/https://vod-metro.twitch.tv" : "/chunkProxy"
+            const baseUrl = environment.production
+                ? "https://powerful-tor.herokuapp.com/https://vod-metro.twitch.tv"
+                : "/chunkProxy"
             let res = await fetch(`${baseUrl}${url}${i}.ts`, {
                 signal: this.abortController.signal,
             })

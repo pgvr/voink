@@ -1,6 +1,13 @@
-<div>
-    <nb-progress-bar [value]="getDownloadProgress()"></nb-progress-bar>
-    <button nbButton status="danger" (click)="abort()">
-        <nb-icon icon="close-outline"></nb-icon>
-    </button>
-</div>
+<ng-container *ngIf="getDownloadProgress() < 100; else done">
+    <p>Do NOT close this page or the download will be canceled</p>
+
+    <div>
+        <nb-progress-bar [value]="getDownloadProgress()"></nb-progress-bar>
+        <button nbButton status="danger" (click)="abort()">
+            <nb-icon icon="close-outline"></nb-icon>
+        </button>
+    </div>
+</ng-container>
+<ng-template #done>
+    <app-done></app-done>
+</ng-template>

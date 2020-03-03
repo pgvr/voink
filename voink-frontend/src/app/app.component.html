@@ -14,14 +14,16 @@
             <nb-card-body>
                 <nb-stepper #stepper orientation="horizontal" [disableStepNavigation]="true">
                     <nb-step label="Choose VOD">
-                        <app-fetch-vod [stepper]="stepper"></app-fetch-vod>
+                        <app-fetch-vod [stepper]="stepper" *ngIf="stepper.selectedIndex === 0"></app-fetch-vod>
                     </nb-step>
                     <nb-step label="Details">
-                        <app-download-vod [stepper]="stepper"></app-download-vod>
+                        <app-download-vod [stepper]="stepper" *ngIf="stepper.selectedIndex === 1"></app-download-vod>
                     </nb-step>
                     <nb-step label="Download">
-                        <p>Do NOT close this page or the download will be canceled</p>
-                        <app-download-progress [stepper]="stepper"></app-download-progress>
+                        <app-download-progress
+                            [stepper]="stepper"
+                            *ngIf="stepper.selectedIndex === 2"
+                        ></app-download-progress>
                     </nb-step>
                 </nb-stepper>
             </nb-card-body>
