@@ -34,4 +34,14 @@ export class VideoController {
             return error
         }
     }
+
+    @Get("latest")
+    async getLatestVods(@Query() query: { streamerName: string }) {
+        try {
+            const latestVideos = await this.videoService.getLatestVideos(query.streamerName)
+            return latestVideos
+        } catch (error) {
+            return error
+        }
+    }
 }

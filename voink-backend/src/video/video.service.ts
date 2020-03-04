@@ -34,6 +34,21 @@ export class VideoService {
         return amountChunks
     }
 
+    async getUserByName(streamerName: string): Promise<TwitchUser> {
+        const url = `https://api.twitch.tv/helix/users?login=${streamerName}`
+        const config = this.getConfig()
+        const { data } = await this.http.get<{ data: TwitchUser[] }>(url, config).toPromise()
+        return data.data[0]
+    }
+
+    async getLatestVideos(streamerName: string) {
+        const user = await this.getUserByName(streamerName)
+        const url = `https://api.twitch.tv/helix/videos?user_id=${user.id}`
+        const config = this.getConfig()
+        const { data } = await this.http.get<VideoInfo[]>(url, config).toPromise()
+        return data
+    }
+
     private getConfig() {
         return { headers: { "Client-ID": process.env.TWITCH_CLIENT_ID || "" } }
     }
@@ -54,4 +69,16 @@ export interface VideoInfo {
     language: string
     type: string
     duration: string
+}
+
+export interface TwitchUser {
+    id: string
+    login: string
+    display_name: string
+    type: string
+    broadcaster_type: string
+    description: string
+    profile_image_url: string
+    offline_image_url: string
+    view_count: number
 }
