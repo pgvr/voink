@@ -11,10 +11,9 @@ export class VodService {
     writer: WritableStreamDefaultWriter
     vodObject: VodInfo
     qualities: Quality[]
-    totalChunks: number = 1
-    loadedChunks: number = 0
+    totalChunks = 1
+    loadedChunks = 0
     abortController: AbortController
-    constructor() {}
 
     async getVodFromId(id: string): Promise<void> {
         const response = await fetch(`${environment.apiUrl}/video?videoId=${id}`)
@@ -28,7 +27,7 @@ export class VodService {
         this.qualities = body
     }
 
-    abortStream() {
+    abortStream(): void {
         if (this.writer) {
             this.writer.abort()
             this.writer.releaseLock()
@@ -38,7 +37,7 @@ export class VodService {
         }
     }
 
-    async startDownload(selectedQuality: Quality, startChunk: number, endChunk: number) {
+    async startDownload(selectedQuality: Quality, startChunk: number, endChunk: number): Promise<void> {
         this.abortController = new AbortController()
         // const { amountOfChunks } = await (
         //     await fetch(`${environment.apiUrl}/video/amountChunks?playlistUrl=${selectedQuality.url}`)
@@ -57,7 +56,7 @@ export class VodService {
             const requests = []
             // enough chunks left to make a batch request with 10?
             // chunks 0-9
-            let enoughRemaining = endChunk - i > 9 ? 9 : endChunk - i
+            const enoughRemaining = endChunk - i > 9 ? 9 : endChunk - i
             for (let j = 0; j <= enoughRemaining; j++) {
                 requests.push(this.getChunkSafe(downloadUrl, i + j))
             }
@@ -88,9 +87,7 @@ export class VodService {
         return new Promise(async (upperResolve, reject) => {
             let res = await fetch(`${environment.apiUrl}/proxy${url}${i}.ts`, {
                 signal: this.abortController.signal,
-            }).catch(err => {
-                console.log("no bueno")
-            }) as Response
+            })
             if (res.status !== 200) {
                 res = await fetch(`${environment.apiUrl}/proxy${url}${i}-muted.ts`, {
                     signal: this.abortController.signal,
@@ -99,7 +96,7 @@ export class VodService {
             if (res.status !== 200) {
                 reject(i)
             }
-            let buffer = await res.arrayBuffer()
+            const buffer = await res.arrayBuffer()
             upperResolve(buffer)
         })
     }
