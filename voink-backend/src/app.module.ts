@@ -1,18 +1,14 @@
-import { Module, HttpModule } from "@nestjs/common"
-import { AppController } from "./app.controller"
-import { AppService } from "./app.service"
+import { HttpModule, Module } from "@nestjs/common"
+import { config } from "dotenv"
+import { resolve } from "path"
 import { VideoController } from "./video/video.controller"
 import { VideoService } from "./video/video.service"
-import { ChunkController } from "./chunk/chunk.controller"
-import { ChunkService } from "./chunk/chunk.service"
 
-import { resolve } from "path"
-import { config } from "dotenv"
 config({ path: resolve(__dirname, "../.env") })
 
 @Module({
     imports: [HttpModule],
-    controllers: [AppController, VideoController, ChunkController],
-    providers: [AppService, VideoService, ChunkService],
+    controllers: [VideoController],
+    providers: [VideoService],
 })
 export class AppModule {}
