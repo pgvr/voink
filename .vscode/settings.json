@@ -1,0 +1,4 @@
+{
+  "vsicons.presets.angular": true,
+  "eslint.workingDirectories": ["./voink-frontend", "./voink-backend"]
+}

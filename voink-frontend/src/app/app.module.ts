@@ -1,29 +1,29 @@
-import { BrowserModule } from "@angular/platform-browser"
-import { NgModule, APP_INITIALIZER } from "@angular/core"
 import { HttpClientModule } from "@angular/common/http"
-import { AppRoutingModule } from "./app-routing.module"
+import { NgModule } from "@angular/core"
 import { FormsModule } from "@angular/forms"
-import { AppComponent } from "./app.component"
+import { BrowserModule } from "@angular/platform-browser"
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
+import { NbEvaIconsModule } from "@nebular/eva-icons"
 import {
-    NbThemeModule,
-    NbLayoutModule,
-    NbInputModule,
+    NbBadgeModule,
     NbButtonModule,
     NbCardModule,
     NbIconModule,
-    NbSpinnerModule,
-    NbSelectModule,
+    NbInputModule,
+    NbLayoutModule,
     NbProgressBarModule,
-    NbBadgeModule,
+    NbSelectModule,
+    NbSpinnerModule,
     NbStepperModule,
+    NbThemeModule,
 } from "@nebular/theme"
-import { NbEvaIconsModule } from "@nebular/eva-icons"
-import { FetchVodComponent } from "./components/fetch-vod/fetch-vod.component"
+import { AppRoutingModule } from "./app-routing.module"
+import { AppComponent } from "./app.component"
+import { DoneComponent } from "./components/done/done.component"
+import { DownloadProgressComponent } from "./components/download-progress/download-progress.component"
 import { DownloadVodComponent } from "./components/download-vod/download-vod.component"
+import { FetchVodComponent } from "./components/fetch-vod/fetch-vod.component"
 import { ThumbnailDimensionsPipe } from "./pipes/thumbnail-dimensions.pipe"
-import { DownloadProgressComponent } from "./components/download-progress/download-progress.component";
-import { DoneComponent } from './components/done/done.component'
 
 @NgModule({
     declarations: [

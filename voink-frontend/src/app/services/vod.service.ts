@@ -86,14 +86,11 @@ export class VodService {
 
     private async getChunkSafe(url: string, i: number): Promise<ArrayBuffer> {
         return new Promise(async (upperResolve, reject) => {
-            // const modulo = i % 200 < 1 ? 1 : i % 200
-            // const urlIndex = modulo < 100 ? (modulo < 10 ? `00${modulo}` : `0${modulo}`) : `${modulo}`
-            // vod-metro.twitch.tv
-            // vod111-ttvnw.akamaized.net        vod${urlIndex}-ttvnw.akamaized.net
-            // const baseUrl = environment.production ? "https://vod-metro.twitch.tv" : "/chunkProxy"
             let res = await fetch(`${environment.apiUrl}/proxy${url}${i}.ts`, {
                 signal: this.abortController.signal,
-            })
+            }).catch(err => {
+                console.log("no bueno")
+            }) as Response
             if (res.status !== 200) {
                 res = await fetch(`${environment.apiUrl}/proxy${url}${i}-muted.ts`, {
                     signal: this.abortController.signal,
