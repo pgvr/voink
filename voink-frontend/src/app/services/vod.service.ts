@@ -27,6 +27,12 @@ export class VodService {
         this.qualities = body
     }
 
+    async getLatestVodsForName(name: string): Promise<VodInfo[]> {
+        const response = await fetch(`${environment.apiUrl}/video/latest?streamerName=${name}`)
+        const body = await response.json()
+        return body.data
+    }
+
     abortStream(): void {
         if (this.writer) {
             this.writer.abort()
