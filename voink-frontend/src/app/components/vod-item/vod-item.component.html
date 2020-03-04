@@ -1,3 +1,4 @@
 <div (click)="select.emit(vod)">
+    <img [src]="vod.thumbnail_url | thumbnailDimensions: [320, 180]" />
     <p>{{ vod.title }}</p>
 </div>

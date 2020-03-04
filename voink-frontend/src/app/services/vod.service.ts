@@ -30,7 +30,8 @@ export class VodService {
     async getLatestVodsForName(name: string): Promise<VodInfo[]> {
         const response = await fetch(`${environment.apiUrl}/video/latest?streamerName=${name}`)
         const body = await response.json()
-        return body.data
+        console.log(body)
+        return body
     }
 
     abortStream(): void {
@@ -50,7 +51,9 @@ export class VodService {
         // ).json()
         this.totalChunks = endChunk - startChunk
         this.loadedChunks = 0
-        const downloadUrl = selectedQuality.url.split("index")[0].split("twitch.tv")[1]
+        console.log(selectedQuality)
+        // const downloadUrl = selectedQuality.url.split("index")[0].split("twitch.tv")[1]
+        const downloadUrl = selectedQuality.url.split("/")[3] + "/" + selectedQuality.url.split("/")[4]
         const start = new Date().getTime()
         this.writeStream = streamsaver.createWriteStream(
             `${this.vodObject.id}_${this.vodObject.user_name}_${
@@ -91,11 +94,11 @@ export class VodService {
 
     private async getChunkSafe(url: string, i: number): Promise<ArrayBuffer> {
         return new Promise(async (upperResolve, reject) => {
-            let res = await fetch(`${environment.apiUrl}/proxy${url}${i}.ts`, {
+            let res = await fetch(`${environment.apiUrl}/proxy/${url}/${i}.ts`, {
                 signal: this.abortController.signal,
             })
             if (res.status !== 200) {
-                res = await fetch(`${environment.apiUrl}/proxy${url}${i}-muted.ts`, {
+                res = await fetch(`${environment.apiUrl}/proxy/${url}/${i}-muted.ts`, {
                     signal: this.abortController.signal,
                 })
             }

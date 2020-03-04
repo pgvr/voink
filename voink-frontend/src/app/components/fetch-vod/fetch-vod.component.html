@@ -4,7 +4,6 @@
 <button nbButton status="primary" (click)="getVodInfo()" [disabled]="!vodIdInput">
     Fetch VOD Info
 </button>
-<button nbButton (click)="getLatestVodsForName('dallas')">Test</button>
 <ng-container *ngFor="let vod of latestVods">
     <app-vod-item [vod]="vod" (select)="getVodFromId($event.id)"></app-vod-item>
 </ng-container>

@@ -45,8 +45,9 @@ export class VideoService {
         const user = await this.getUserByName(streamerName)
         const url = `https://api.twitch.tv/helix/videos?user_id=${user.id}`
         const config = this.getConfig()
-        const { data } = await this.http.get<VideoInfo[]>(url, config).toPromise()
-        return data
+        const { data } = await this.http.get<{ data: VideoInfo[] }>(url, config).toPromise()
+        console.log(data.data.filter(vod => vod.type === "archive"))
+        return data.data.filter(vod => vod.type === "archive" && vod.thumbnail_url !== "")
     }
 
     private getConfig() {

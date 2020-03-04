@@ -1,7 +1,17 @@
 div {
-    padding: 1rem 2rem;
-    background: white;
-    p {
-        color: black;
+    transition: all 50ms ease-in-out;
+    position: relative;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    img {
+        border-radius: 0.5rem;
     }
+    p {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+div:hover {
+    transform: scale(1.1);
 }

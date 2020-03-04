@@ -1,7 +1,7 @@
 import { Quality } from "../video/video.types"
 
 export function getQualities(data: string) {
-    let lines = data.split("\n")
+    const lines = data.split("\n")
     const qualities: Quality[] = []
     for (let i = 0; i < lines.length; i++) {
         const line = lines[i]
@@ -23,14 +23,12 @@ export function getQualities(data: string) {
             qualities.push(quality)
         }
     }
-    console.log(qualities)
     return qualities
 }
 
 export function getAmountOfChunks(data: string) {
-    let lines = data.split("\n")
+    const lines = data.split("\n")
     const secondToLastLine = lines[lines.length - 3]
     const amount = secondToLastLine.substring(0, secondToLastLine.length - 3)
-    console.log(amount)
     return amount
 }

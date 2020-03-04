@@ -10,7 +10,7 @@ import { VodService, VodInfo } from "src/app/services/vod.service"
 })
 export class FetchVodComponent {
     @Input() stepper: NbStepperComponent
-    vodIdInput = "557814568"
+    vodIdInput = "noway4u_sir"
     latestVods: VodInfo[]
     constructor(public vodService: VodService, public ui: UiService) {}
 
@@ -20,6 +20,7 @@ export class FetchVodComponent {
             this.getVodFromId(this.vodIdInput)
         } else if (inputType === InputType.NAME) {
             // get latest vods for name
+            this.getLatestVodsForName(this.vodIdInput)
         } else if (inputType === InputType.URL) {
             // extract id from url
             const parts = this.vodIdInput.split("/")
@@ -38,13 +39,14 @@ export class FetchVodComponent {
     async getLatestVodsForName(name: string): Promise<void> {
         this.ui.isStepperLoading = true
         this.latestVods = await this.vodService.getLatestVodsForName(name)
+        console.log(this.latestVods)
         this.ui.isStepperLoading = false
     }
 
     determineInputType(): InputType {
         const numberRegex = new RegExp(/^[0-9]+$/)
-        const nameRegex = new RegExp(/^[0-9]+$/)
-        const urlRegex = new RegExp(/^[0-9]+$/)
+        const nameRegex = new RegExp(/^[0-9a-zA-Z_]+$/)
+        const urlRegex = new RegExp(/^https:\/\/www.twitch.tv\/videos\/[0-9]+$/)
         if (numberRegex.test(this.vodIdInput)) {
             return InputType.ID
         } else if (nameRegex.test(this.vodIdInput)) {
