@@ -23,8 +23,8 @@ import { DoneComponent } from "./components/done/done.component"
 import { DownloadProgressComponent } from "./components/download-progress/download-progress.component"
 import { DownloadVodComponent } from "./components/download-vod/download-vod.component"
 import { FetchVodComponent } from "./components/fetch-vod/fetch-vod.component"
-import { ThumbnailDimensionsPipe } from "./pipes/thumbnail-dimensions.pipe";
-import { VodItemComponent } from './components/vod-item/vod-item.component'
+import { ThumbnailDimensionsPipe } from "./pipes/thumbnail-dimensions.pipe"
+import { VodItemComponent } from "./components/vod-item/vod-item.component"
 
 @NgModule({
     declarations: [

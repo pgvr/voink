@@ -1,17 +1,28 @@
-div {
-    transition: all 50ms ease-in-out;
-    position: relative;
-    border-radius: 0.5rem;
-    cursor: pointer;
-    img {
-        border-radius: 0.5rem;
+:host {
+    width: 100%;
+    div {
+        transition: all 50ms ease-in-out;
+        position: relative;
+        cursor: pointer;
+        img {
+            border-radius: 0.5rem;
+            width: 100%;
+            height: auto;
+        }
+        p {
+            position: absolute;
+            bottom: 0;
+            margin: 1rem;
+            max-width: calc(100% - 2rem);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            padding: 1rem;
+            background: rgba($color: #000000, $alpha: 0.8);
+            border-radius: 0.5rem;
+        }
     }
-    p {
-        position: absolute;
-        bottom: 0;
-    }
-}
 
-div:hover {
-    transform: scale(1.1);
+    div:hover {
+        transform: scale(1.1);
+    }
 }

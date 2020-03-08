@@ -2,8 +2,10 @@
 <!-- <p class="text-hint">e.g. https://www.twitch.tv/videos/<strong>557814568</strong></p> -->
 <input nbInput type="text" name="vodId" [(ngModel)]="vodIdInput" />
 <button nbButton status="primary" (click)="getVodInfo()" [disabled]="!vodIdInput">
-    Fetch VOD Info
+    Fetch VOD(s)
 </button>
-<ng-container *ngFor="let vod of latestVods">
-    <app-vod-item [vod]="vod" (select)="getVodFromId($event.id)"></app-vod-item>
-</ng-container>
+<div class="vod-container">
+    <ng-container *ngFor="let vod of latestVods">
+        <app-vod-item [vod]="vod" (select)="getVodFromId($event.id)"></app-vod-item>
+    </ng-container>
+</div>
