@@ -13,14 +13,19 @@
     height: inherit;
     box-shadow: none;
     position: relative;
-    h1 {
-        font-size: 6rem;
-        line-height: 6rem;
-        margin: 0;
-        // Theme BG
+    .title {
         background: #1b1b38;
         padding: 1rem;
         border-radius: 0.25rem;
+        h1 {
+            font-size: 6rem;
+            line-height: 6rem;
+            margin: 0;
+        }
+        p {
+            margin: 0;
+            text-align: center;
+        }
     }
 }
 
