@@ -6,7 +6,7 @@ const production = process.env.NODE_ENV
 async function bootstrap() {
     const app = await NestFactory.create(AppModule)
     if (production) {
-        app.enableCors({ origin: "https://voink.netlify.com" })
+        app.enableCors({ origin: "https://voink.netlify.app" })
     } else {
         app.enableCors()
     }
