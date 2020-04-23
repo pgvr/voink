@@ -61,7 +61,7 @@ export class VodService {
             }.ts`,
         )
         this.writer = this.writeStream.getWriter()
-        for (let i = startChunk; i <= endChunk; i = i + 10) {
+        for (let i = startChunk; i < endChunk; i = i + 10) {
             const requests = []
             // enough chunks left to make a batch request with 10?
             // chunks 0-9
