@@ -58,7 +58,7 @@ export class DownloadVodComponent implements OnInit {
 
     getEndChunk() {
         const endSeconds = this.endHourInput * 60 * 60 + this.endMinInput * 60 + this.endSecondInput
-        const endChunk = Math.ceil(endSeconds / this.chunkLength)
+        const endChunk = Math.ceil(endSeconds / this.chunkLength) - 1
         return endChunk
     }
 
