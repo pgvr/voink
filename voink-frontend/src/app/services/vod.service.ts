@@ -45,6 +45,8 @@ export class VodService {
     }
 
     async startDownload(selectedQuality: Quality, startChunk: number, endChunk: number): Promise<void> {
+        console.log("Start chunk " + startChunk)
+        console.log("End chunk " + endChunk)
         this.abortController = new AbortController()
         // const { amountOfChunks } = await (
         //     await fetch(`${environment.apiUrl}/video/amountChunks?playlistUrl=${selectedQuality.url}`)
