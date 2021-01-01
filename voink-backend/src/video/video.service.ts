@@ -6,7 +6,7 @@ export class VideoService {
     constructor(private http: HttpService) {}
 
     async getVideoInfo(videoId: string): Promise<VideoInfo> {
-        const config = this.getConfig()
+        const config = await this.getConfig()
         const url = `https://api.twitch.tv/helix/videos?id=${videoId}`
         const { data } = await this.http.get<VideoInfo>(url, config).toPromise()
         return data
@@ -36,7 +36,7 @@ export class VideoService {
 
     async getUserByName(streamerName: string): Promise<TwitchUser> {
         const url = `https://api.twitch.tv/helix/users?login=${streamerName}`
-        const config = this.getConfig()
+        const config = await this.getConfig()
         const { data } = await this.http.get<{ data: TwitchUser[] }>(url, config).toPromise()
         return data.data[0]
     }
@@ -44,15 +44,33 @@ export class VideoService {
     async getLatestVideos(streamerName: string) {
         const user = await this.getUserByName(streamerName)
         const url = `https://api.twitch.tv/helix/videos?user_id=${user.id}`
-        const config = this.getConfig()
+        const config = await this.getConfig()
         const { data } = await this.http.get<{ data: VideoInfo[] }>(url, config).toPromise()
         console.log(data.data.filter(vod => vod.type === "archive"))
         return data.data.filter(vod => vod.type === "archive" && vod.thumbnail_url !== "")
     }
 
-    private getConfig() {
-        return { headers: { "Client-ID": process.env.TWITCH_CLIENT_ID || "" } }
+    private async getConfig() {
+        const token = await this.getToken()
+        return { headers: { "Client-ID": process.env.TWITCH_CLIENT_ID || "", Authorization: `Bearer ${token}` } }
     }
+
+    // If this stops working store the token somewhere and refetch on 401, im lazy
+    private async getToken() {
+        const { data } = await this.http
+            .post<TwitchAuthResponse>(
+                `https://id.twitch.tv/oauth2/token?client_id=${process.env.TWITCH_CLIENT_ID ||
+                    ""}&client_secret=${process.env.TWITCH_CLIENT_SECRET || ""}&grant_type=client_credentials`,
+            )
+            .toPromise()
+        return data.access_token
+    }
+}
+
+export interface TwitchAuthResponse {
+    access_token: string
+    expires_in: number
+    token_type: string
 }
 
 export interface VideoInfo {
